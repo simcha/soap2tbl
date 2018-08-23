@@ -26,16 +26,19 @@ CSV.foreach("obj_list.csv", headers: :first_row) do |obj|
   if response.body[:get_obj_periodic_status_response][:get_obj_periodic_status_result]
     obj_list = response.body[:get_obj_periodic_status_response][:get_obj_periodic_status_result][:obj_periodic_status]
     #multiplikujemy dane do statusów
-    status_list = obj_list[:obj_statuses]
-    status_list = [status_list] if status_list.is_a? Hash
-    status_list.each do |status_parent|
-      status = status_parent[:obj_status]
-      status << {key: 'DateTime', value: obj_list[:date_time]}
-      #convert strange arry to proper hash
-      obj_list2 = status.map{|elem|[elem[:key].to_underscore,elem[:value]]}
-      obj_hash = Hash[obj_list2]
-      obj_hash["obj_id"] = obj_id
-      all_statuses << obj_hash
+    obj_list = [obj_list] if obj_list.is_a? Hash
+    obj_list.each do |obj|
+      status_list = obj[:obj_statuses]
+      status_list = [status_list] if status_list.is_a? Hash
+      status_list.each do |status_parent|
+        status = status_parent[:obj_status]
+        status << {key: 'DateTime', value: obj[:date_time]}
+        #convert strange arry to proper hash
+        obj_list2 = status.map{|elem|[elem[:key].to_underscore,elem[:value]]}
+        obj_hash = Hash[obj_list2]
+        obj_hash["obj_id"] = obj_id
+        all_statuses << obj_hash
+      end
     end
   else
     puts "Empty"
