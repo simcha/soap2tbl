@@ -25,7 +25,8 @@ CSV.foreach("obj_list.csv", headers: :first_row) do |obj|
    # puts response.body
    if response.body[:get_rec_data_history_response][:get_rec_data_history_result]
      obj_list = response.body[:get_rec_data_history_response][:get_rec_data_history_result][:logistic_db_rec_data]
-     all_statuses << obj_list
+     obj_list = [obj_list] if obj_list.is_a? Hash
+     all_statuses += obj_list
    else
      puts "Empty"
    end
