@@ -15,7 +15,7 @@ all_statuses = []
 CSV.foreach("obj_list.csv", headers: :first_row) do |obj|
   obj_id = obj['obj_id']
   puts obj_id
-  client = Savon.client(basic_auth: [ARGV[0], ARGV[1]],wsdl: "http://monitoring.pl/s115/LogisticWebService/LogisticWebService.asmx?wsdl")
+  client = Savon.client(basic_auth: [ARGV[0], ARGV[1]],log: true,wsdl: "http://monitoring.pl/s115/LogisticWebService/LogisticWebService.asmx?wsdl")
 
   response = client.call(:get_tracks2, message: {
       obj_id: obj_id,
