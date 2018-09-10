@@ -15,15 +15,15 @@ all_statuses = []
 CSV.foreach("obj_list.csv", headers: :first_row) do |obj|
   obj_id = obj['obj_id']
   puts obj_id
-  client = Savon.client(basic_auth: [ARGV[0], ARGV[1]],log: true,wsdl: "http://monitoring.pl/s115/LogisticWebService/LogisticWebService.asmx?wsdl")
+  client = Savon.client(basic_auth: [ARGV[0], ARGV[1]],wsdl: "http://monitoring.pl/s8/LogisticWebService/LogisticWebService.asmx?wsdl")
 
   response = client.call(:get_tracks2, message: {
       obj_id: obj_id,
-      start_time: '2017-01-01T00:00:00+00:00',
-      stop_time: '2017-12-31T23:00:00+00:00',
+      start_time: '2018-07-01T00:00:00+00:00',
+      stop_time: '2018-08-31T23:00:00+00:00',
       track_options: [{
         track_options: {
-          key:'PrivateHoursTimeZoneAndCulture',
+          key:'PointScope',
           value: 'Central European Standard Time;pl-PL;'
         }
       }]

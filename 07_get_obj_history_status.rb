@@ -15,9 +15,12 @@ all_statuses = []
 CSV.foreach("obj_list.csv", headers: :first_row) do |obj|
   obj_id = obj['obj_id']
   puts obj_id
-  client = Savon.client(basic_auth: [ARGV[0], ARGV[1]],wsdl: "http://monitoring.pl/s115/LogisticWebService/LogisticWebService.asmx?wsdl")
+  client = Savon.client(basic_auth: [ARGV[0], ARGV[1]],wsdl: "http://monitoring.pl/s8/LogisticWebService/LogisticWebService.asmx?wsdl")
 
-  response = client.call(:get_obj_history_status, message: { obj_id: obj_id})
+  response = client.call(:get_obj_history_status, message: {
+    obj_id: obj_id,
+    date_time: '2018-08-31T00:00:00+00:00'
+  })
   if response.body[:get_obj_history_status_response][:get_obj_history_status_result]
     obj_list = response.body[:get_obj_history_status_response][:get_obj_history_status_result][:obj_status]
     #convert strange arry to proper hash
@@ -35,3 +38,5 @@ CSV.open("obj_history_status.csv", "wb", headers: all_statuses.first.keys, :writ
     csv << obj.values
   end
 end
+
+## dane tylko za jeden dzien

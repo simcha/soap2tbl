@@ -30,3 +30,6 @@ GetRecHistory - OBSOLETE
 GetRecDataHistoryJson - to samo co GetRecDataHistory tylko w jsonie
 GetNewEventRec - to co GetEventRecHisory tylko do monitoringu
 GetNewAndChangedEventRec - to co GetEventRecHisory tylko do monitoringu
+
+
+
