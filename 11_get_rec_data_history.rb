@@ -20,7 +20,7 @@ CSV.foreach("obj_list.csv", headers: :first_row) do |obj|
   response = client.call(:get_rec_data_history, message: {
       obj_id: obj_id,
       start_time: '2018-08-01T00:00:00+00:00',
-      stop_time: '2018-09-01T23:59:00+00:00',
+      stop_time: '2018-08-01T23:59:00+00:00',
     })
    # puts response.body
    if response.body[:get_rec_data_history_response][:get_rec_data_history_result]
